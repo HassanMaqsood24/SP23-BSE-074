@@ -1,0 +1,89 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+#header {
+    border: 1px rgb(29, 173, 29);
+    padding: 0;
+    margin: 0;
+    text-align: right;
+}
+#menu{
+    background-color: rgb(29, 173, 29);
+    padding: 5px;
+    margin: 0px;
+}
+#menu li{
+    display: inline;
+    margin: 5px;
+}
+#menu li a{
+    color:white;
+    text-decoration:none;
+}
+#menu li:hover a{
+    color: black;
+    }
+.secondtag{
+    background-color: rgb(2, 2, 173);
+    padding: 10px;
+    overflow: hidden;
+    }    
+.left-sidebar{
+    float: left;
+    padding: 5px;
+    margin: 0;
+    color: white;
+}
+.right-sidebar{
+    float: right;
+    padding: 5px;
+    margin: 0;
+    color: white;
+}
+#header1 {
+    border: 1px rgb(25, 223, 25);
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+#secondmenu{
+    background-color:white;
+    padding: 1px;
+    margin: 0px;
+}
+#secondmenu li{
+    display: inline;
+    margin: 5px;
+    font-size: small;
+}
+#secondmenu li a{
+    color:black;
+    text-decoration:none;
+}
+#secondmenu li:hover a{
+    color: rgb(16, 207, 16);
+    }
+#footer {
+        border: 1px black;
+        padding: 0;
+        margin: 0px;
+    }
+    #ending{
+        background-color: black;
+        padding: 10px;
+        margin: 0px;
+    }
+    #ending li{
+        margin-left: 50px;
+        margin-bottom: 50px;
+        margin-top: 25px;
+        padding: 5px;
+    }
+    #ending li a{
+        color:white;
+        text-decoration:none;
+    }
+    #menu li:hover a{
+        color: green;
+        }
