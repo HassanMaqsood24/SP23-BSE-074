@@ -3,13 +3,13 @@ body, html {
     padding: 0;
 }
 #header {
-    border: 1px rgb(29, 173, 29);
+    border: 1px rgb(107, 87, 224);
     padding: 0;
     margin: 0;
     text-align: right;
 }
 #menu{
-    background-color: rgb(29, 173, 29);
+    background-color:#3b5998 ;
     padding: 5px;
     margin: 0px;
 }
@@ -18,39 +18,62 @@ body, html {
     margin: 5px;
 }
 #menu li a{
-    color:white;
+    color:#ffffff;
     text-decoration:none;
 }
 #menu li:hover a{
     color: black;
     }
-.secondtag{
-    background-color: rgb(2, 2, 173);
-    padding: 10px;
-    overflow: hidden;
+    .secondtag {
+        background-color:  #ffcc00;
+        padding: 0; 
+        overflow: hidden;
+        height: 75px; 
+        position: relative;
+    } 
+    .left-sidebar {
+        float: left;
+        margin: 0;
+        color:#333333;
+        height: 100%; 
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        padding-left: 20px; 
+    }
+    .right-sidebar {
+        float: right;
+        margin: 0;
+        color:#333333;
+        height: 100%; 
+        display: flex; 
+        align-items: center; 
+        padding-right: 50px; 
+    } 
+    .left-sidebar img {
+        height: 50%;
+        width: auto; 
+        max-height: 50px;
+    }
+    .right-sidebar p {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        padding: 0 10px; 
+        line-height: normal;
     }    
-.left-sidebar{
-    float: left;
-    padding: 5px;
-    margin: 0;
-    color: white;
-}
-.right-sidebar{
-    float: right;
-    padding: 5px;
-    margin: 0;
-    color: white;
-}
 #header1 {
-    border: 1px rgb(25, 223, 25);
+    border: 5px #ffffff;
     padding: 0;
     margin: 0;
     text-align: center;
+    height: 40px;
 }
 #secondmenu{
-    background-color:white;
+    background-color: #ffffff;
     padding: 1px;
-    margin: 0px;
+    margin-top: 20px;
 }
 #secondmenu li{
     display: inline;
@@ -58,32 +81,216 @@ body, html {
     font-size: small;
 }
 #secondmenu li a{
-    color:black;
+    color:#007bff;
     text-decoration:none;
 }
 #secondmenu li:hover a{
     color: rgb(16, 207, 16);
     }
-#footer {
-        border: 1px black;
-        padding: 0;
-        margin: 0px;
-    }
-    #ending{
+    #footer {
+        border: 1px solid black;
+        padding: 20px;
         background-color: black;
-        padding: 10px;
-        margin: 0px;
+        color: white;
+        margin-top: 0;
+    } 
+    #ending {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        padding-left: 20px;
     }
-    #ending li{
-        margin-left: 50px;
-        margin-bottom: 50px;
-        margin-top: 25px;
-        padding: 5px;
+    #ending li {
+        margin: 10px 0;
+        padding: 5px 0; 
     }
-    #ending li a{
-        color:white;
-        text-decoration:none;
+    #ending li a {
+        color: white; 
+        text-decoration: none; 
     }
-    #menu li:hover a{
-        color: green;
-        }
+    #ending li:hover a {
+        color: green; 
+    }
+    hr {
+        border: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 5px 0; 
+    }
+    #copyright {
+        text-align: center; 
+        margin-top: 20px; 
+        padding-left: 20px; 
+    }    
+    img {
+        display: block;
+        margin: 0;
+    }
+    .message-sign {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+    .message-sign img {
+        width: 50px;
+        height: auto; 
+        cursor: pointer;
+        border-radius: 50%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    .fixed-review-button {
+        position: fixed;
+        right: 0;
+        top: 50%; 
+        transform: translateY(-50%) rotate(-90deg);
+        z-index: 1000;
+        margin: 0;
+    }
+    .fixed-review-button a {
+        display: block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transform: translateX(50%);
+    }
+    .fixed-review-button a:hover {
+        background-color: #0056b3;
+    }
+    .Main {
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        width: 100%;
+        margin-left: 30px; 
+        padding: 15px 0; 
+        margin-right: 20px;
+    }
+    
+    .image-gallery, .logo-gallery {
+        display: flex;
+        justify-content: space-between; 
+        width: 100%;
+        margin-bottom: 20px; 
+    }
+    
+    .gallery-image, .logo-image {
+        width: 30%; 
+        height: auto; 
+        border: none; 
+    }
+    .logo-image{
+        margin-left: 180px;
+    }
+    
+    .logo-item {
+        text-align: center; 
+        width: 30%; 
+    }
+    
+    .paragraph {
+        text-align: center; 
+        margin-top: 10px; 
+    }
+    .content-section {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 20px 0;
+        width: 100%;
+        max-width: 800px;
+        background-color: #f9f9f9;
+        border-radius: 5px; 
+    }
+    
+    .content-section h2, .content-section h3 {
+        margin-top: 0; 
+    }
+    
+    .content-section p {
+        line-height: 1.6;
+        color: #333; 
+    }
+    .furniture-section {
+        text-align: center;
+        margin: 20px 0; 
+    }
+    
+    .section-title {
+        color: #007BFF; 
+        font-size: 24px; 
+        margin-bottom: 20px; 
+    }
+    
+    .furniture-gallery {
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: center;
+    }
+    
+    .furniture-item {
+        width: 30%; 
+        margin: 10px; 
+    }
+    
+    .furniture-image {
+        width: 100%; 
+        height: auto; 
+    }
+    
+    .furniture-caption {
+        font-size: 14px; 
+        color: #333; 
+        margin-bottom: 20px;
+    }
+    .furniture-caption h4,h5,h6{
+        font-size: larger;
+    }
+    .browse-categories {
+        display: flex; 
+        align-items: center; 
+        margin: 20px 0; 
+        text-align: center;
+        width: 100%; 
+    }
+    .line {
+        flex: 1; 
+        height: 2px; 
+        background-color: black; 
+        margin: 0 10px; 
+    }
+    .browse-text {
+        font-weight: bold;
+        font-size: 20px; 
+        color: #333;
+    }
+    .logo-gallery {
+        display: flex; 
+        justify-content: space-between; 
+        align-items: flex-start;
+        margin: 20px 0; 
+        padding: 0 10%;
+    }
+    .logo-item {
+        text-align: center;
+        flex: 1;
+        margin: 0 px; 
+    }
+    .logo-image {
+        width: 20px; 
+        height: auto; 
+        margin-bottom: 5px; 
+    }
+    .logo-name {
+        font-weight: bold; 
+        font-size: 16px; 
+        margin-left: 40px;
+    }
+    .logo-description {
+        font-size: 14px; 
+        color: #666; 
+        margin-left: 40px;
+    }  
