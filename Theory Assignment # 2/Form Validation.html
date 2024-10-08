@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: skyblue; /* Light background for the body */
+    }
+
+    .container {
+      background-color: lightcyan; /* Light grey background for the form container */
+      border: 2px solid #007bff; /* Blue border around the container */
+      padding: 30px;
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for better appearance */
+      margin-top: 50px; /* Top margin to center it a bit */
+    }
+
+    .form-group input {
+      border: 1px solid #ced4da; /* Slight border around input fields */
+      border-radius: 5px;
+      padding: 10px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .success-message {
+      display: none;
+      color: green;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mt-5">Checkout Page</h1>
+    <form id="checkout-form" class="mt-5">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" class="form-control" required>
+        <span class="error" id="name-error"></span>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" class="form-control" required>
+        <span class="error" id="email-error"></span>
+      </div>
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" class="form-control" required>
+        <span class="error" id="address-error"></span>
+      </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" class="form-control" required>
+        <span class="error" id="city-error"></span>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div id="success-message" class="success-message">Data submitted successfully!</div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+    const form = document.getElementById('checkout-form');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const addressInput = document.getElementById('address');
+    const cityInput = document.getElementById('city');
+    const nameError = document.getElementById('name-error');
+    const emailError = document.getElementById('email-error');
+    const addressError = document.getElementById('address-error');
+    const cityError = document.getElementById('city-error');
+    const successMessage = document.getElementById('success-message');
+
+    form.addEventListener('submit', (e) => {
+      let isValid = true;
+
+      // Reset previous error messages
+      nameError.textContent = '';
+      emailError.textContent = '';
+      addressError.textContent = '';
+      cityError.textContent = '';
+
+      // Validation checks
+      if (nameInput.value.trim() === '') {
+        nameError.textContent = 'Please enter your name';
+        isValid = false;
+      }
+
+      if (emailInput.value.trim() === '') {
+        emailError.textContent = 'Please enter your email';
+        isValid = false;
+      } else if (!emailInput.value.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+        emailError.textContent = 'Please enter a valid email';
+        isValid = false;
+      }
+
+      if (addressInput.value.trim() === '') {
+        addressError.textContent = 'Please enter your address';
+        isValid = false;
+      }
+
+      if (cityInput.value.trim() === '') {
+        cityError.textContent = 'Please enter your city';
+        isValid = false;
+      }
+
+      if (!isValid) {
+        e.preventDefault();
+      } else {
+        // Prevent default submission to server (for demo purposes)
+        e.preventDefault();
+
+        // Show success alert
+        alert("Data submitted successfully!");
+
+        // Optionally, clear form fields after successful submission
+        form.reset();
+      }
+    });
+  </script>
+</body>
+</html>
