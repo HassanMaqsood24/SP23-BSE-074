@@ -1,0 +1,4 @@
+Project Title: Data Structures and Algorithms (DSA)
+
+Description:
+This project focused on implementing key Data Structures and Algorithms (DSA) concepts. It includes working with fundamental data structures such as arrays, linked lists, and trees, as well as applying sorting algorithms like quicksort and mergesort. The project also explores recursion, dynamic programming, and greedy algorithms to solve complex computational problems efficiently. Through this project, various real-world problems were solved using these data structures, including search and sorting tasks, pathfinding algorithms, and performance optimization techniques.
