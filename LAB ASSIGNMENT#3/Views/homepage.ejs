@@ -1,0 +1,26 @@
+
+<h4>My Featured Products</h4>
+<div class="row">
+    <% for( let index = 0; index < products.length; index++ ) { %>
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img src="/<%= products[index].picture %>" width="100px"/>
+                <div class="card-body">
+                  <h5 class="card-title"><%= products[index].title %></h5>
+                  <p class="card-text"><%=products[index].description %></p>
+                  <a href="#" class="btn btn-primary">PKR: <%=products[index].price %> Add To Cart</a>
+                </div>
+              </div>
+        </div>
+    <% } %>
+</div>
+    <%-contentFor("footer-area")  %>
+    <p>This content is added by homepage</p>
+
+
+    <%-contentFor("styles-area")  %>
+    <style>
+        h1{
+            background-color: blueviolet;
+        }
+    </style>
