@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Background Image Styling */
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+
+    /* Background image from a reliable source */
+    .login-bg {
+      background-image: url('https://images.unsplash.com/photo-1589403846979-e20de9d98fa3'); /* Furniture-related image */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+    }
+
+    /* Center the login form vertically and horizontally */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    /* Form Styling */
+    .card {
+      background: rgba(255, 255, 255, 0.8); /* Transparent background */
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .card h3 {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .btn-info {
+      background-color: #17a2b8;
+      border-radius: 50px;
+      padding: 10px 20px;
+      width: 100%;
+    }
+
+    .btn-info:hover {
+      background-color: #138496;
+    }
+
+    .form-text {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+
+    /* Responsive Design for Smaller Screens */
+    @media (max-width: 576px) {
+      .card {
+        padding: 20px;
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-bg">
+    <div class="login-container">
+      <div class="card shadow-lg">
+        <h3 class="text-center mb-4">Welcome Back</h3>
+        
+        <!-- Login Form -->
+        <form action="" method="post">
+          <!-- Email Field -->
+          <div class="form-group mb-4">
+            <label for="email" class="text-dark font-weight-bold">Email</label>
+            <input 
+              type="email" 
+              class="form-control border-primary" 
+              name="email" 
+              id="email"
+              placeholder="Enter your email" 
+              required
+            />
+          </div>
+
+          <!-- Password Field -->
+          <div class="form-group mb-4">
+            <label for="password" class="text-dark font-weight-bold">Password</label>
+            <input 
+              type="password" 
+              class="form-control border-success" 
+              name="password" 
+              id="password"
+              placeholder="Enter your password" 
+              required
+            />
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-info btn-lg px-5">Login</button>
+          </div>
+
+          <!-- Forgot Password Link -->
+          <div class="form-group text-center mt-3">
+            <a href="#" class="text-muted">Forgot password?</a>
+          </div>
+
+          <!-- Sign Up Link -->
+          <div class="form-group text-center mt-3">
+            <p class="text-muted">Don't have an account? <a href="/register" class="text-info">Sign up here</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

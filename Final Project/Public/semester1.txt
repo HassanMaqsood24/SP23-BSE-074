@@ -1,0 +1,4 @@
+Project Title: Cafe Management System
+
+Description:
+The Cafe Management System is designed to help manage daily operations of a cafe, including order processing, billing, and inventory management. Built using Object-Oriented Programming (OOP) principles, this system efficiently handles customer orders, tracks menu items, updates inventory levels, and generates bills. The project is user-friendly, with a simple interface that allows cafe staff to quickly navigate between different functionalities. Additionally, the system can manage multiple tables, keep a record of daily sales, and calculate discounts or taxes based on custom rules.
