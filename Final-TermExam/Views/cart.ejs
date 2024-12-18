@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products in Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: url('https://via.placeholder.com/1500x800') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.6); /* Transparent black background for contrast */
+            border-radius: 10px;
+        }
+
+        h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .table {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .table th, .table td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table img {
+            width: 100px;  /* Increased image size */
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        /* Styling for the product title */
+        .product-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #007bff;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        /* Styling for the product price */
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #007bff;
+        }
+
+        /* Styling for the product description */
+        .product-description {
+            font-size: 0.9rem;
+            color: #007bff;
+            margin-top: 5px;
+        }
+
+        /* Button Styling */
+        .btn-success {
+            border-radius: 5px;
+            font-size: 18px;
+            background-color: #28a745;
+            color: white;
+            width: 100%;
+            padding: 15px;
+        }
+
+        .btn-success:hover {
+            opacity: 0.9;
+        }
+
+        .btn-danger {
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #dc3545;
+            color: white;
+            width: 100%;
+            padding: 5px;
+        }
+
+        .btn-danger:hover {
+            opacity: 0.8;
+        }
+
+        .cart-summary {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .float-end {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        /* Header styling (same as homepage) */
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            color: #fca311 !important;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Footer styling (same as homepage) */
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #fca311;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ApnaFurniture.pk</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/homepage">My Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart">MY CART</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Portfolio">About me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Bootstrap">Visit Main Site</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Content -->
+    <div class="container">
+        <h4>Products in Cart</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td><img src="/<%= product.picture %>" alt="<%= product.title %>"></td>
+                        <td><span class="product-title"><%= product.title %></span></td>
+                        <td><span class="product-description"><%= product.description %></span></td>
+                        <td><span class="product-price">PKR <%= product.price %></span></td>
+                        <td>
+                            <form action="/remove-from-cart/<%= product._id %>" method="GET">
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <!-- Checkout Button -->
+        <div class="cart-summary">
+            <a href="/checkout" class="btn btn-success float-end">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 ApnaFurniture.pk | <a href="/terms">Terms & Conditions</a> | <a href="/privacy">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

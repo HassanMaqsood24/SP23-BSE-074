@@ -12,7 +12,7 @@ let orderSchema = mongoose.Schema({
         title: { type: String } 
     },
 ],
-
+  date: { type: Date, default: Date.now } 
 });
 let OrderModel = mongoose.model("Order", orderSchema);
 module.exports = OrderModel;
