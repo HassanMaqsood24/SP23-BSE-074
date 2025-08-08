@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard - Allah Hoo Motors</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: #e0e7ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #1e293b;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #6366f1;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      cursor: pointer;
+    }
+
+    nav ul li a {
+      color: #e0e7ff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #4f46e5;
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('/images/admin-banner.jpg') center/cover no-repeat;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #cbd5e1;
+    }
+
+    .hero-model {
+      margin-top: 10px;
+      width: 250px;
+      height: 250px;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Main Content */
+    main {
+      flex-grow: 1;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      min-height: 60vh;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #818cf8;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1e293b;
+      color: #94a3b8;
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      margin-top: auto;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero-model {
+        width: 180px;
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Allah Hoo Motors</div>
+    <ul id="navLinks">
+      <li><a href="/admin/adminpanel" class="active">Dashboard</a></li>
+      <li><a href="/admin/adminproducts">Manage Cars</a></li>
+      <li><a href="/user/userproducts">Featured Products</a></li>
+      <li><a href="/admin/adminlogout">Logout</a></li>
+      <li><a href="#">Payments</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Welcome, <%= admin.name %>!</h1>
+    <p>You are logged in as Administrator</p>
+    <div class="hero-model">
+      <model-viewer src="/model/mobile1.glb" alt="3D Phone Model" auto-rotate camera-controls ar shadow-intensity="1.2" exposure="1.1"></model-viewer>
+    </div>
+  </section>
+
+  <main>
+    <h2 class="section-title">Admin Panel Overview</h2>
+    <!-- Future widgets or admin data go here -->
+  </main>
+
+  <footer>
+    &copy; 2025 Allah Hoo Motors. All rights reserved.
+  </footer>
+
+</body>
+</html>

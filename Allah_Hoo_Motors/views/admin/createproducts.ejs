@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Product | Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://www.loucampaio.com/wp-content/plugins/admin-custom-login/images/3d-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+
+    .glass-wrapper {
+      max-width: 1100px;
+      margin: 80px auto 40px;
+      display: flex;
+      gap: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 50px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .glass-wrapper.light-mode {
+      background: rgba(255, 255, 255, 0.85);
+      color: #333;
+    }
+
+    .form-column {
+      flex: 0 0 60%;
+    }
+
+    .image-column {
+      flex: 0 0 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-column img {
+      width: 90%;
+      object-fit: contain;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .form-control,
+    .form-select {
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      color: #000;
+      padding: 16px 20px;
+      border-radius: 15px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #3f51b5;
+      box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.25);
+    }
+
+    .btn-submit {
+      background: linear-gradient(to right, #3f51b5, #5c6bc0);
+      border: none;
+      padding: 16px 30px;
+      border-radius: 15px;
+      font-weight: 600;
+      width: 100%;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 16px;
+    }
+
+    .theme-slider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+
+    .form-check-label {
+      margin-left: 5px;
+    }
+
+    .form-check {
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .glass-wrapper {
+        flex-direction: column;
+      }
+
+      .form-column,
+      .image-column {
+        max-width: 100%;
+        flex: 1;
+      }
+
+      .image-column img {
+        max-width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="#">Admin Panel</a>
+    <div class="ms-auto theme-slider">
+      <input type="checkbox" class="form-check-input" id="themeSlider" />
+    </div>
+  </nav>
+
+  <div class="glass-wrapper" id="wrapper">
+    <div class="form-column">
+      <h2><i class="fas fa-plus-circle me-2"></i> Add New Product</h2>
+      <form action="/admin/adminproducts/create" method="post" enctype="multipart/form-data" class="p-3">
+        <div class="form-group">
+          <label for="titleInput">Title</label>
+          <input name="title" type="text" class="form-control" id="titleInput" placeholder="Enter Title" required />
+        </div>
+
+        <select id="brandSelect" name="brand" class="form-select" required>
+  <option value="">Select Brand</option>
+</select>
+
+<select id="modelSelect" name="model" class="form-select" required>
+  <option value="">Select Model</option>
+</select>
+
+        <div class="form-group">
+  <label for="year">Year</label>
+  <select name="year" class="form-select" required>
+    <option value="">Select Year</option>
+    <!-- Years from 2005 to 2025 -->
+    <% for (let y = 2025; y >= 2000; y--) { %>
+      <option value="<%= y %>"><%= y %></option>
+    <% } %>
+  </select>
+</div>
+
+        <div class="form-group">
+          <label for="descriptionInput">Description</label>
+          <textarea name="description" class="form-control" id="descriptionInput" placeholder="Enter Description" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="priceInput">Price</label>
+          <input name="price" type="number" class="form-control" id="priceInput" placeholder="Enter Price" required />
+        </div>
+
+        <div class="form-group">
+          <label for="stockInput">Stock</label>
+          <input name="stock" type="number" class="form-control" id="stockInput" placeholder="Enter Stock" required />
+        </div>
+
+        <div class="form-group">
+          <label for="registrationCity">Registration City</label>
+          <select name="registrationCity" class="form-select" required>
+            <option value="">Select City</option>
+            <option value="Lahore">Lahore</option>
+            <option value="Karachi">Karachi</option>
+            <option value="Islamabad">Islamabad</option>
+            <option value="Rawalpindi">Rawalpindi</option>
+            <option value="Multan">Multan</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="engineType">Engine Type</label>
+          <select name="engineType" class="form-select" required>
+            <option value="">Select Engine Type</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Electric">Electric</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="engineCapacity">Engine Capacity</label>
+          <select name="engineCapacity" class="form-select" required>
+<option value="" disabled selected>Select Engine Capacity</option>
+<option value="660cc">660cc</option>
+<option value="800cc">800cc</option>
+<option value="850cc">850cc</option>
+<option value="1000cc">1000cc</option>
+<option value="1200cc">1200cc</option>
+<option value="1300cc">1300cc</option>
+<option value="1500cc">1500cc</option>
+<option value="1600cc">1600cc</option>
+<option value="1800cc">1800cc</option>
+<option value="2000cc">2000cc</option>
+<option value="2200cc">2200cc</option>
+<option value="2400cc">2400cc</option>
+<option value="2500cc">2500cc</option>
+<option value="2700cc">2700cc</option>
+<option value="3000cc">3000cc</option>
+<option value="3500cc">3500cc</option>
+<option value="4000cc+">4000cc+</option>
+
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="transmission">Transmission</label>
+          <select name="transmission" class="form-select" required>
+            <option value="">Select Transmission</option>
+            <option value="Manual">Manual</option>
+            <option value="Automatic">Automatic</option>
+            <option value="Automatic/Manual">Automatic/Manual</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="condition">Condition</label>
+          <select name="condition" class="form-select" required>
+            <option value="">Select Condition</option>
+            <option value="Excellent">New</option>
+            <option value="Good">used</option>
+            <option value="Average">usedd</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Features</label><br />
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="features" value="ABS" id="feature1">
+            <label class="form-check-label" for="feature1">ABS</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="features" value="Airbags" id="feature2">
+            <label class="form-check-label" for="feature2">Airbags</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="features" value="Power Windows" id="feature3">
+            <label class="form-check-label" for="feature3">Power Windows</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="features" value="Sunroof" id="feature4">
+            <label class="form-check-label" for="feature4">Sunroof</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="features" value="Navigation System" id="feature5">
+            <label class="form-check-label" for="feature5">Navigation System</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="features" value="Reverse Camera" id="feature6">
+            <label class="form-check-label" for="feature6">Reverse Camera</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="features" value="Alloy Rims" id="feature7">
+            <label class="form-check-label" for="feature7">Alloy Rims</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fileInput">Picture</label>
+          <input name="files" type="file" class="form-control" id="fileInput" multiple />
+        </div>
+
+        <div class="form-group">
+  <label for="ownedBy">Owned By</label>
+  <select name="ownedBy" id="ownedBySelect" class="form-select" required>
+    <option value="">Select Ownership</option>
+    <option value="Allah Hoo Motors">Allah Hoo Motors (Company Owned)</option>
+    <option value="External Dealer">External Dealer</option>
+  </select>
+</div>
+
+<div class="form-group" id="costField" style="display: none;">
+  <label for="cost">Purchase Cost</label>
+  <input type="number" name="cost" class="form-control" placeholder="Enter Cost Price (only if company owned)" />
+</div>
+
+<div class="mb-3">
+  <label for="buyDate" class="form-label">Purchase Date</label>
+  <input type="date" class="form-control" id="buyDate" name="buyDate" required>
+</div>
+
+
+
+        <div class="form-group text-center mt-4">
+          <button type="submit" class="btn-submit">Create New Product</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="image-column">
+      <img src="https://cdn-icons-png.flaticon.com/512/8746/8746045.png" alt="Product Illustration" />
+    </div>
+  </div>
+
+ <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const brandSelect = document.getElementById('brandSelect');
+  const modelSelect = document.getElementById('modelSelect');
+
+  const brandsWithModels = {
+    "Toyota": ["Corolla", "Camry", "Hilux", "Land Cruiser", "Fortuner", "Yaris"],
+    "Honda": ["Civic", "City", "Accord", "BR-V", "CR-V"],
+    "Suzuki": ["Alto", "Mehran", "Cultus", "Swift", "Wagon R", "Bolan", "Ravi"],
+    "Kia": ["Sportage", "Picanto", "Stonic", "Sorento"],
+    "Hyundai": ["Tucson", "Elantra", "Sonata", "Santa Fe"],
+    "Nissan": ["Sunny", "Dayz", "Note", "Wingroad"],
+    "Daihatsu": ["Mira", "Move", "Terios", "Hijet"],
+    "Mitsubishi": ["Lancer", "Pajero", "Outlander", "EK Wagon"],
+    "Chevrolet": ["Joy", "Aveo", "Optra", "Spark"],
+    "Changan": ["Alsvin", "Karvaan", "Oshan X7"],
+    "FAW": ["V2", "Carrier", "XPV"],
+    "Proton": ["Saga", "X70"],
+    "MG": ["HS", "ZS EV", "3"],
+    "Haval": ["H6", "Jolion"],
+    "Prince": ["Pearl", "DFSK Glory 580"],
+    "BMW": ["3 Series", "5 Series", "X5", "X7"],
+    "Mercedes-Benz": ["C-Class", "E-Class", "GLA", "GLE"],
+    "Audi": ["A3", "A4", "Q3", "Q7"],
+    "Volkswagen": ["Golf", "Passat", "Polo"],
+    "Lexus": ["RX", "NX", "ES"],
+    "Subaru": ["Impreza", "Forester", "Legacy"],
+    "Mazda": ["CX-5", "3", "6"],
+    "Jeep": ["Wrangler", "Compass", "Cherokee"],
+    "Peugeot": ["2008", "3008"],
+    "Renault": ["Duster", "Kwid"],
+    "Geely": ["Coolray", "Azkarra"],
+    "Hino": ["500 Series", "300 Series"],
+    "Isuzu": ["D-Max", "N-Series"],
+    "Land Rover": ["Defender", "Range Rover", "Discovery"],
+    "Ford": ["EcoSport", "Mustang", "Ranger"],
+    "Tesla": ["Model 3", "Model S", "Model Y"],
+    "Volvo": ["XC40", "XC60", "S60"],
+    "Baic": ["BJ40", "X25"],
+    "JAC": ["T6", "X200"],
+    "Zotye": ["Z100", "T600"],
+    "Chery": ["Tiggo 4", "Tiggo 8"],
+    "BYD": ["Dolphin", "Seal", "Atto 3"],
+    "Skoda": ["Octavia", "Rapid"],
+    "Great Wall": ["Wingle", "Hover"],
+    "DFSK": ["Glory 580", "K01"],
+    "Foton": ["Tunland", "View"],
+    "Daewoo": ["Racer", "Cielo"],
+    "SsangYong": ["Tivoli", "Rexton"],
+    "Bugatti": ["Chiron"],
+    "Rolls-Royce": ["Ghost", "Phantom"],
+    "Ferrari": ["488 GTB", "Roma"],
+    "Lamborghini": ["Huracan", "Urus"],
+    "Porsche": ["Cayenne", "Macan"],
+    "Mini": ["Cooper", "Countryman"],
+    "Alfa Romeo": ["Giulia", "Stelvio"],
+    "Infiniti": ["Q50", "QX60"],
+    "Genesis": ["G70", "GV80"],
+    "Acura": ["ILX", "MDX"],
+    "RAM": ["1500"],
+    "Hummer": ["H2", "H3"],
+    "Pontiac": ["Vibe", "G6"],
+    "Saab": ["9-3", "9-5"],
+    "Tata": ["Nexon", "Tiago"],
+    "Mahindra": ["Thar", "Bolero"],
+    "Maruti": ["800", "WagonR", "Baleno"],
+    "Perodua": ["Axia", "Myvi"],
+    "Roewe": ["RX5", "i5"],
+    "Lucid": ["Air"],
+    "Rivian": ["R1T", "R1S"],
+    "Koenigsegg": ["Jesko"],
+    "Pagani": ["Huayra"],
+    "Aston Martin": ["Vantage", "DBX"],
+    "Lotus": ["Evora", "Emira"],
+    "Cupra": ["Formentor"],
+    "SEAT": ["Ibiza", "Arona"],
+    "Smart": ["Fortwo"],
+    "Scion": ["tC", "xB"],
+    "Opel": ["Corsa", "Astra"],
+    "Holden": ["Commodore"],
+    "Troller": ["T4"],
+    "Wuling": ["Hongguang"],
+    "VinFast": ["VF 8"],
+    "Citroën": ["C3", "C5"],
+    "Peugeot": ["208", "5008"],
+    "Lifan": ["X60", "620"],
+    "Changhe": ["Q35"],
+    "ZNA": ["Rich 6"],
+    "JMC": ["Vigus"],
+    "Leapmotor": ["T03"],
+    "Nio": ["ES6", "ET7"],
+    "Xpeng": ["G3", "P7"],
+    "Aiways": ["U5"],
+    "Arcfox": ["Alpha-T"],
+    "Seres": ["SF5"],
+    "Aion": ["V Plus"],
+    "Wey": ["VV7"],
+    "Everus": ["VE-1"],
+    "Haima": ["7X"],
+    "Luxgen": ["U6"],
+    "Soueast": ["DX7"],
+    "Brilliance": ["V5", "H530"],
+    "Maxus": ["D90"],
+    "TANK": ["300", "500"]
+  };
+
+  // Populate brands
+  Object.keys(brandsWithModels).forEach(brand => {
+    const option = document.createElement('option');
+    option.value = brand;
+    option.textContent = brand;
+    brandSelect.appendChild(option);
+  });
+
+  // Handle brand change
+  brandSelect.addEventListener('change', () => {
+    const selectedBrand = brandSelect.value;
+    modelSelect.innerHTML = '<option value="">Select Model</option>';
+
+    if (brandsWithModels[selectedBrand]) {
+      brandsWithModels[selectedBrand].forEach(model => {
+        const option = document.createElement('option');
+        option.value = model;
+        option.textContent = model;
+        modelSelect.appendChild(option);
+      });
+    }
+  });
+});
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const ownedBySelect = document.getElementById("ownedBySelect");
+    const costField = document.getElementById("costField");
+
+    ownedBySelect.addEventListener("change", () => {
+      if (ownedBySelect.value === "Allah Hoo Motors") {
+        costField.style.display = "block";
+      } else {
+        costField.style.display = "none";
+      }
+    });
+  });
+</script>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

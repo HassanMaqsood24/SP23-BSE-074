@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Complain & Suggestion - Allah Hoo Motors</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #f1f1f1;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff5252;
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+      padding: 12px 14px;
+      font-size: 1rem;
+      border-radius: 6px;
+      background: #2c2c2c;
+      color: #f1f1f1;
+      border: 1px solid #444;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #ff5252;
+      box-shadow: 0 0 6px rgba(255, 82, 82, 0.5);
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    button[type="submit"] {
+      background-color: #ff5252;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #e53935;
+      transform: scale(1.05);
+    }
+
+    select {
+      appearance: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Complaint & Suggestion Form</h1>
+    <form action="/complain" method="POST">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="fullName" placeholder="Your Name" required />
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="‪‪+92 300 1234567‬‬" />
+
+      <label for="type">Complaint Type</label>
+      <select name="type" id="type" required>
+        <option value="">-- Select an Option --</option>
+        <option value="product">Product Issue</option>
+        <option value="delivery">Delivery Problem</option>
+        <option value="payment">Payment Concern</option>
+        <option value="service">Service Feedback</option>
+        <option value="suggestion">General Suggestion</option>
+      </select>
+
+      <label for="orderId">Order ID (optional)</label>
+      <input type="text" id="orderId" name="orderId" placeholder="e.g., #12345" />
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" placeholder="Describe your issue or suggestion..." required></textarea>
+
+      <button type="submit">Submit Complaint</button>
+    </form>
+  </div>
+
+</body>
+</html>

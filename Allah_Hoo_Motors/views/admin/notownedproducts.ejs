@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Not-Owned Products • Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --product-bg-dark: #2c3e50;
+      --product-bg-light: #f5f5f5;
+      --btn-bg-dark: #4f6f96;
+      --btn-bg-dark-hover: #3d4f77;
+      --text-light: #f1f1f1;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: var(--product-bg-light);
+    }
+    .navbar-custom {
+      background-color: #2c3e50;
+    }
+    .navbar-custom .nav-link,
+    .navbar-custom .navbar-brand {
+      color: #ffffff;
+    }
+    .navbar-custom .nav-link.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .product-section {
+      background: var(--product-bg-dark);
+      padding: 24px;
+      margin: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      color: var(--text-light);
+    }
+    .table.table-dark {
+      background: var(--product-bg-light);
+      color: var(--text-light);
+    }
+    .table.table-dark th {
+      background: var(--btn-bg-dark);
+      color: #fff;
+    }
+    .table.table-dark tbody tr:hover {
+      background: var(--btn-bg-dark-hover);
+    }
+    .img-thumbnail {
+      width: 80px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+    .action-btns .btn {
+      margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="/admin/adminpanel">Admin Panel</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/adminpanel">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/soldproducts">Sold Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/adminproducts">Manage Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/admin/ownedproducts">owned Products</a>
+          </li>          
+          <li class="nav-item">
+            <a class="nav-link active" href="/admin/notownedproducts">Dealer Products</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 🔧 Not-Owned Products Section -->
+  <div class="product-section">
+    <h4>External Dealer Unsold Products</h4>
+
+    <div class="table-responsive mt-3">
+      <table class="table table-dark align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Year</th>
+            <th>Picture</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% const notOwnedUnsold = products.filter(p => p.ownedBy !== 'Allah Hoo Motors' && !p.isSold); %>
+
+          <% if (notOwnedUnsold.length > 0) { %>
+            <% notOwnedUnsold.forEach(p => { %>
+              <tr>
+                <td><%= p.title %></td>
+                <td><%= p.brand %></td>
+                <td><%= p.model %></td>
+                <td>PKR <%= p.price.toLocaleString() %></td>
+                <td><%= p.year %></td>
+                <td>
+                  <% if (p.pictures && p.pictures.length > 0) { %>
+                    <img src="/uploads/<%= p.pictures[0] %>" class="img-thumbnail" />
+                  <% } else { %>
+                    <span class="text-muted">No Image</span>
+                  <% } %>
+                </td>
+                <td class="action-btns">
+<a href="/product/<%= p._id %>?from=notowned" class="btn btn-sm btn-info">
+  <i class="fas fa-arrow-right"></i>
+</a>
+                </td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="7" class="text-center text-muted py-4">
+                No unsold products from external dealers.
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>

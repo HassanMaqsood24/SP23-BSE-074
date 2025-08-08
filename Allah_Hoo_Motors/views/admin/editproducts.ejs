@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edit Product | Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: url('https://www.loucampaio.com/wp-content/plugins/admin-custom-login/images/3d-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      padding: 50px 20px;
+    }
+
+    .edit-wrapper {
+      max-width: 1100px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+
+    .form-label {
+      font-weight: 600;
+    }
+
+    .form-control,
+    .form-select {
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      padding: 16px;
+      color: #000;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #3f51b5;
+      box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.3);
+    }
+
+    .btn-submit {
+      background: linear-gradient(to right, #3f51b5, #5c6bc0);
+      border: none;
+      padding: 16px;
+      border-radius: 15px;
+      font-weight: 600;
+      width: 100%;
+      color: #fff;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="edit-wrapper">
+    <h2 class="text-center mb-4"><i class="fas fa-edit me-2"></i>Edit Product</h2>
+    <form action="/admin/adminproducts/edit/<%= product._id %>" method="POST" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="titleInput" class="form-label">Title</label>
+          <input name="title" type="text" class="form-control" id="titleInput" value="<%= product.title %>" required />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Brand</label>
+          <select name="brand" class="form-select" id="brandSelect" data-selected="<%= product.brand %>" required></select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Model</label>
+          <select name="model" class="form-select" id="modelSelect" data-selected="<%= product.model %>" required></select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Year</label>
+          <select name="year" class="form-select" required>
+            <option value="">Select Year</option>
+            <% for (let y = 2025; y >= 2000; y--) { %>
+              <option value="<%= y %>" <%= product.year == y ? 'selected' : '' %>><%= y %></option>
+            <% } %>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <label for="descriptionInput" class="form-label">Description</label>
+          <textarea name="description" class="form-control" id="descriptionInput" rows="4" required><%= product.description %></textarea>
+        </div>
+        <div class="col-md-6">
+          <label for="priceInput" class="form-label">Price</label>
+          <input name="price" type="number" class="form-control" id="priceInput" value="<%= product.price %>" required />
+        </div>
+        <div class="col-md-6">
+          <label for="stockInput" class="form-label">Stock</label>
+          <input name="stock" type="number" class="form-control" id="stockInput" value="<%= product.stock %>" required />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Registration City</label>
+          <select name="registrationCity" class="form-select" required>
+            <% ["Lahore", "Karachi", "Islamabad", "Rawalpindi", "Multan"].forEach(city => { %>
+              <option value="<%= city %>" <%= product.registrationCity === city ? 'selected' : '' %>><%= city %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Engine Type</label>
+          <select name="engineType" class="form-select" required>
+            <% ["Petrol", "Diesel", "Hybrid", "Electric"].forEach(type => { %>
+              <option value="<%= type %>" <%= product.engineType === type ? 'selected' : '' %>><%= type %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Engine Capacity</label>
+          <select name="engineCapacity" class="form-select" required>
+            <% ["660cc", "1000cc", "1300cc", "1500cc", "1800cc", "2000cc+"].forEach(cc => { %>
+              <option value="<%= cc %>" <%= product.engineCapacity === cc ? 'selected' : '' %>><%= cc %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Transmission</label>
+          <select name="transmission" class="form-select" required>
+            <% ["Manual", "Automatic"].forEach(tr => { %>
+              <option value="<%= tr %>" <%= product.transmission === tr ? 'selected' : '' %>><%= tr %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Condition</label>
+          <select name="condition" class="form-select" required>
+            <% ["Excellent", "Good", "Average", "Below Average"].forEach(c => { %>
+              <option value="<%= c %>" <%= product.condition === c ? 'selected' : '' %>><%= c %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <label class="form-label">Features</label><br />
+          <% const featureOptions = ["ABS", "Airbags", "Power Windows", "Sunroof", "Navigation System", "Reverse Camera", "Alloy Rims"]; %>
+          <% featureOptions.forEach((feature, idx) => { %>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="features" value="<%= feature %>" id="feature<%= idx %>" <%= product.features.includes(feature) ? 'checked' : '' %>>
+              <label class="form-check-label" for="feature<%= idx %>"><%= feature %></label>
+            </div>
+          <% }) %>
+        </div>
+        <div class="col-md-12">
+          <label for="fileInput" class="form-label mt-3">Replace Pictures</label>
+          <input name="files" type="file" class="form-control" id="fileInput" multiple />
+        </div>
+        <% if (product.pictures && product.pictures.length > 0) { %>
+          <div class="col-md-12 mt-3">
+            <p>Current Image:</p>
+            <img src="/uploads/<%= product.pictures[0] %>" alt="Product Image" style="max-width: 200px; border-radius: 10px; border: 2px solid #fff;" />
+          </div>
+        <% } %>
+        <!-- ADD inside the form below existing fields -->
+<div class="col-md-6">
+  <label class="form-label">Owned By</label>
+  <select name="ownedBy" id="ownedBySelect" class="form-select" required>
+    <option value="">Select Ownership</option>
+    <option value="Allah Hoo Motors" <%= product.ownedBy === 'Allah Hoo Motors' ? 'selected' : '' %>>Allah Hoo Motors (Company Owned)</option>
+    <option value="External Dealer" <%= product.ownedBy === 'External Dealer' ? 'selected' : '' %>>External Dealer</option>
+  </select>
+</div>
+
+<div class="col-md-6" id="costField" style="display: none;">
+  <label for="cost">Purchase Cost</label>
+  <input type="number" name="cost" class="form-control" value="<%= product.cost || '' %>" />
+</div>
+
+<div class="col-md-6" id="commissionField" style="display: none;">
+  <label for="commissionPercent">Commission %</label>
+  <input type="number" step="0.1" name="commissionPercent" class="form-control" value="<%= product.commissionPercent || '' %>" />
+</div>
+
+<div class="mb-3">
+  <label for="buyDate" class="form-label">Purchase Date</label>
+  <input 
+  type="date" 
+  class="form-control" 
+  id="buyDate" 
+  name="buyDate" 
+  value="<%= product.buyDate ? product.buyDate.toISOString().split('T')[0] : '' %>" 
+  required>
+</div>
+
+        <div class="col-md-12 text-center mt-4">
+          <button type="submit" class="btn-submit">Save Changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const brandSelect = document.getElementById('brandSelect');
+  const modelSelect = document.getElementById('modelSelect');
+
+  const brandsWithModels = {
+    "Toyota": ["Corolla", "Camry", "Hilux", "Land Cruiser", "Fortuner", "Yaris"],
+    "Honda": ["Civic", "City", "Accord", "BR-V", "CR-V"],
+    "Suzuki": ["Alto", "Mehran", "Cultus", "Swift", "Wagon R", "Bolan", "Ravi"],
+    "Kia": ["Sportage", "Picanto", "Stonic", "Sorento"],
+    "Hyundai": ["Tucson", "Elantra", "Sonata", "Santa Fe"],
+    "Nissan": ["Sunny", "Dayz", "Note", "Wingroad"],
+    "Daihatsu": ["Mira", "Move", "Terios", "Hijet"],
+    "Mitsubishi": ["Lancer", "Pajero", "Outlander", "EK Wagon"],
+    "Chevrolet": ["Joy", "Aveo", "Optra", "Spark"],
+    "Changan": ["Alsvin", "Karvaan", "Oshan X7"],
+    "FAW": ["V2", "Carrier", "XPV"],
+    "Proton": ["Saga", "X70"],
+    "MG": ["HS", "ZS EV", "3"],
+    "Haval": ["H6", "Jolion"],
+    "Prince": ["Pearl", "DFSK Glory 580"],
+    "BMW": ["3 Series", "5 Series", "X5", "X7"],
+    "Mercedes-Benz": ["C-Class", "E-Class", "GLA", "GLE"],
+    "Audi": ["A3", "A4", "Q3", "Q7"],
+    "Volkswagen": ["Golf", "Passat", "Polo"],
+    "Lexus": ["RX", "NX", "ES"],
+    "Subaru": ["Impreza", "Forester", "Legacy"],
+    "Mazda": ["CX-5", "3", "6"],
+    "Jeep": ["Wrangler", "Compass", "Cherokee"],
+    "Peugeot": ["2008", "3008"],
+    "Renault": ["Duster", "Kwid"],
+    "Geely": ["Coolray", "Azkarra"],
+    "Hino": ["500 Series", "300 Series"],
+    "Isuzu": ["D-Max", "N-Series"],
+    "Land Rover": ["Defender", "Range Rover", "Discovery"],
+    "Ford": ["EcoSport", "Mustang", "Ranger"],
+    "Tesla": ["Model 3", "Model S", "Model Y"],
+    "Volvo": ["XC40", "XC60", "S60"],
+    "Baic": ["BJ40", "X25"],
+    "JAC": ["T6", "X200"],
+    "Zotye": ["Z100", "T600"],
+    "Chery": ["Tiggo 4", "Tiggo 8"],
+    "BYD": ["Dolphin", "Seal", "Atto 3"],
+    "Skoda": ["Octavia", "Rapid"],
+    "Great Wall": ["Wingle", "Hover"],
+    "DFSK": ["Glory 580", "K01"],
+    "Foton": ["Tunland", "View"],
+    "Daewoo": ["Racer", "Cielo"],
+    "SsangYong": ["Tivoli", "Rexton"],
+    "Bugatti": ["Chiron"],
+    "Rolls-Royce": ["Ghost", "Phantom"],
+    "Ferrari": ["488 GTB", "Roma"],
+    "Lamborghini": ["Huracan", "Urus"],
+    "Porsche": ["Cayenne", "Macan"],
+    "Mini": ["Cooper", "Countryman"],
+    "Alfa Romeo": ["Giulia", "Stelvio"],
+    "Infiniti": ["Q50", "QX60"],
+    "Genesis": ["G70", "GV80"],
+    "Acura": ["ILX", "MDX"],
+    "RAM": ["1500"],
+    "Hummer": ["H2", "H3"],
+    "Pontiac": ["Vibe", "G6"],
+    "Saab": ["9-3", "9-5"],
+    "Tata": ["Nexon", "Tiago"],
+    "Mahindra": ["Thar", "Bolero"],
+    "Maruti": ["800", "WagonR", "Baleno"],
+    "Perodua": ["Axia", "Myvi"],
+    "Roewe": ["RX5", "i5"],
+    "Lucid": ["Air"],
+    "Rivian": ["R1T", "R1S"],
+    "Koenigsegg": ["Jesko"],
+    "Pagani": ["Huayra"],
+    "Aston Martin": ["Vantage", "DBX"],
+    "Lotus": ["Evora", "Emira"],
+    "Cupra": ["Formentor"],
+    "SEAT": ["Ibiza", "Arona"],
+    "Smart": ["Fortwo"],
+    "Scion": ["tC", "xB"],
+    "Opel": ["Corsa", "Astra"],
+    "Holden": ["Commodore"],
+    "Troller": ["T4"],
+    "Wuling": ["Hongguang"],
+    "VinFast": ["VF 8"],
+    "Citroën": ["C3", "C5"],
+    "Peugeot": ["208", "5008"],
+    "Lifan": ["X60", "620"],
+    "Changhe": ["Q35"],
+    "ZNA": ["Rich 6"],
+    "JMC": ["Vigus"],
+    "Leapmotor": ["T03"],
+    "Nio": ["ES6", "ET7"],
+    "Xpeng": ["G3", "P7"],
+    "Aiways": ["U5"],
+    "Arcfox": ["Alpha-T"],
+    "Seres": ["SF5"],
+    "Aion": ["V Plus"],
+    "Wey": ["VV7"],
+    "Everus": ["VE-1"],
+    "Haima": ["7X"],
+    "Luxgen": ["U6"],
+    "Soueast": ["DX7"],
+    "Brilliance": ["V5", "H530"],
+    "Maxus": ["D90"],
+    "TANK": ["300", "500"]
+  };
+
+  // Populate brands
+  Object.keys(brandsWithModels).forEach(brand => {
+    const option = document.createElement('option');
+    option.value = brand;
+    option.textContent = brand;
+    brandSelect.appendChild(option);
+  });
+
+  // Handle brand change
+  brandSelect.addEventListener('change', () => {
+    const selectedBrand = brandSelect.value;
+    modelSelect.innerHTML = '<option value="">Select Model</option>';
+
+    if (brandsWithModels[selectedBrand]) {
+      brandsWithModels[selectedBrand].forEach(model => {
+        const option = document.createElement('option');
+        option.value = model;
+        option.textContent = model;
+        modelSelect.appendChild(option);
+      });
+    }
+  });
+});
+</script>
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const brandSelect = document.getElementById("brandSelect");
+  const modelSelect = document.getElementById("modelSelect");
+  const ownedBySelect = document.getElementById("ownedBySelect");
+  const costField = document.getElementById("costField");
+  const commissionField = document.getElementById("commissionField");
+
+  const currentBrand = "<%= product.brand %>";
+  const currentModel = "<%= product.model %>";
+  const ownedBy = "<%= product.ownedBy %>";
+
+  // Populate brand dropdown
+  Object.keys(brandsWithModels).forEach(brand => {
+    const option = document.createElement('option');
+    option.value = brand;
+    option.textContent = brand;
+    if (brand === currentBrand) option.selected = true;
+    brandSelect.appendChild(option);
+  });
+
+  // Populate model based on current brand
+  if (brandsWithModels[currentBrand]) {
+    brandsWithModels[currentBrand].forEach(model => {
+      const option = document.createElement('option');
+      option.value = model;
+      option.textContent = model;
+      if (model === currentModel) option.selected = true;
+      modelSelect.appendChild(option);
+    });
+  }
+
+  brandSelect.addEventListener("change", () => {
+    const selectedBrand = brandSelect.value;
+    modelSelect.innerHTML = '<option value="">Select Model</option>';
+    if (brandsWithModels[selectedBrand]) {
+      brandsWithModels[selectedBrand].forEach(model => {
+        const option = document.createElement('option');
+        option.value = model;
+        option.textContent = model;
+        modelSelect.appendChild(option);
+      });
+    }
+  });
+
+  // Show/hide cost/commission
+  function toggleOwnershipFields() {
+    if (ownedBySelect.value === "Allah Hoo Motors") {
+      costField.style.display = "block";
+      commissionField.style.display = "none";
+    } else if (ownedBySelect.value === "External Dealer") {
+      costField.style.display = "none";
+      commissionField.style.display = "block";
+    } else {
+      costField.style.display = "none";
+      commissionField.style.display = "none";
+    }
+  }
+
+  ownedBySelect.addEventListener("change", toggleOwnershipFields);
+  toggleOwnershipFields(); // initial call
+});
+</script>
+
+</body>
+</html>

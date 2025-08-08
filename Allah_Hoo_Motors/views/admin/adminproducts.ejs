@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product Management • Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --product-bg-dark: #2c3e50;
+      --product-bg-light: #f5f5f5;
+      --btn-bg-dark: #4f6f96;
+      --btn-bg-dark-hover: #3d4f77;
+      --text-light: #f1f1f1;
+    }
+    body {
+      background: var(--product-bg-light);
+    }
+    .navbar-custom {
+      background-color: #2c3e50;
+    }
+    .navbar-custom .nav-link,
+    .navbar-custom .navbar-brand {
+      color: #ffffff;
+    }
+    .navbar-custom .nav-link.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .product-section {
+      background: var(--product-bg-dark);
+      padding: 24px;
+      margin: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      color: var(--text-light);
+    }
+    .btn-custom {
+      background: var(--btn-bg-dark);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+    }
+    .btn-custom:hover {
+      background: var(--btn-bg-dark-hover);
+    }
+    .table.table-dark {
+      background: var(--product-bg-light);
+      color: var(--text-light);
+    }
+    .table.table-dark th {
+      background: var(--btn-bg-dark);
+      color: #fff;
+    }
+    .table.table-dark tbody tr:hover {
+      background: var(--btn-bg-dark-hover);
+    }
+    .img-thumbnail {
+      width: 80px;
+      object-fit: cover;
+    }
+    .action-btns .btn {
+      margin-right: 4px;
+    }
+    .modal-content input,
+    .modal-content label {
+      color: #000;
+    }
+    .filter-form select {
+      max-width: 200px;
+      display: inline-block;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="/admin/adminpanel">Admin Panel</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/admin/adminpanel">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/soldproducts">Sold Products</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/admin/adminproducts">Manage Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/ownedproducts">Owned Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/notownedproducts">Dealer Products</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 🔧 Product Management Section -->
+<div class="product-section">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Product Management</h4>
+    <a href="/admin/adminproducts/create" class="btn btn-custom">
+      <i class="fas fa-plus me-2"></i>Add New Product
+    </a>
+  </div>
+
+  <!-- 📊 Gross Summary and Filters -->
+  <% if (typeof totalGross !== 'undefined') { %>
+    <div class="mb-3">
+      <h5>Total Gross: PKR <%= totalGross.toLocaleString() %></h5>
+      <p>Total Sold Products: <%= totalSold %></p>
+      <p>Total Owned Products: <%= totalOwned %></p>
+      <p>Total Dealer Products: <%= totalDealer %></p>
+    </div>
+
+    <form class="filter-form mb-4" method="GET" action="/admin/adminproducts">
+      <select name="filterMonth" class="form-select d-inline">
+        <option value="">Select Month</option>
+        <% months.forEach(m => { %>
+          <option value="<%= m %>" <%= m === selectedMonth ? 'selected' : '' %>><%= m %></option>
+        <% }) %>
+      </select>
+      <select name="filterYear" class="form-select d-inline">
+        <option value="">Select Year</option>
+        <% years.forEach(y => { %>
+          <option value="<%= y %>" <%= y == selectedYear ? 'selected' : '' %>><%= y %></option>
+        <% }) %>
+      </select>
+      <button type="submit" class="btn btn-light btn-sm">Filter</button>
+    </form>
+
+    <% Object.keys(monthlyGross).forEach(month => { %>
+      <div class="mb-4">
+        <h5><%= month %> — Gross: PKR <%= monthlyGross[month].toLocaleString() %></h5>
+        <table class="table table-bordered table-sm text-dark bg-white">
+          <thead class="table-dark">
+            <tr>
+              <th>Title</th>
+              <th>Brand</th>
+              <th>Model</th>
+              <th>Sold Price</th>
+              <th>Sold Date</th>
+              <th>Sold By</th>
+              <th>Gross</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (monthlyBreakdown && monthlyBreakdown[month]) { %>
+              <% monthlyBreakdown[month].forEach(p => { %>
+                <tr>
+                  <td><%= p.title %></td>
+                  <td><%= p.brand %></td>
+                  <td><%= p.model %></td>
+<td>PKR <%= p.soldPrice ? p.soldPrice.toLocaleString() : 'N/A' %></td>
+<td><%= p.soldDate ? new Date(p.soldDate).toLocaleDateString() : 'N/A' %></td>
+<td><%= p.soldByName || 'N/A' %></td>
+<td>PKR <%= p.ownedBy === 'Allah Hoo Motors'
+  ? (p.soldPrice && p.cost ? (p.soldPrice - p.cost).toLocaleString() : 'N/A')
+  : (p.soldPrice && p.commissionPercent ? ((p.soldPrice * p.commissionPercent) / 100).toLocaleString() : 'N/A')
+%></td>
+
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="7" class="text-center">No records for this month.</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    <% }) %>
+  <% } %>
+
+    <!-- 📋 Product Table -->
+    <div class="table-responsive">
+      <table class="table table-dark align-middle">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Year</th>
+            <th>Picture</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(p => { %>
+            <tr>
+              <td><%= p.title %></td>
+              <td><%= p.brand %></td>
+              <td><%= p.model %></td>
+              <td>PKR <%= p.price.toLocaleString() %></td>
+              <td><%= p.year %></td>
+              <td>
+                <% if (p.pictures && p.pictures.length > 0) { %>
+                  <img src="/uploads/<%= p.pictures[0] %>" class="img-thumbnail" />
+                <% } else { %>
+                  <span class="text-muted">No Image</span>
+                <% } %>
+              </td>
+              <td class="action-btns">
+                <a href="/admin/products/edit/<%= p._id %>" class="btn btn-sm btn-warning">Edit</a>
+                <form action="/admin/adminproducts/delete/<%= p._id %>" method="POST" class="d-inline">
+                  <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+                <a href="/product/<%= p._id %>?from=manage" class="btn btn-sm btn-info">
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+                <% if (!p.isSold) { %>
+                  <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#sellModal<%= p._id %>">Mark as Sold</button>
+                <% } %>
+              </td>
+            </tr>
+
+            <!-- 🔄 Sell Modal -->
+            <div class="modal fade" id="sellModal<%= p._id %>" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog">
+                <form method="POST" action="/admin/adminproducts/markassold/<%= p._id %>">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Mark as Sold: <%= p.title %></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="mb-3">
+                        <label>Sale Price</label>
+                        <input type="number" name="price" class="form-control" required />
+                      </div>
+                      <% if (p.ownedBy !== 'Allah Hoo Motors') { %>
+                        <div class="mb-3">
+                          <label>Commission %</label>
+                          <input type="number" name="commissionPercent" class="form-control" step="0.1" min="0" required />
+                        </div>
+                      <% } %>
+                      <div class="mb-3">
+                        <label>Sold By (Person Name)</label>
+                        <input type="text" name="soldByName" class="form-control" required />
+                      </div>
+                      <div class="mb-3">
+                        <label>Sold Date</label>
+                        <input type="date" name="soldDate" class="form-control" required />
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-success">Confirm Sale</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ✅ Bootstrap Script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
